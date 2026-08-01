@@ -5,41 +5,52 @@ tg.expand();
 
 const balance = document.getElementById("balance");
 
-let money = 0;
+let user = null;
 
 if (tg.initDataUnsafe.user) {
 
-    const user = tg.initDataUnsafe.user;
+    user = tg.initDataUnsafe.user;
 
-    console.log("User ID:", user.id);
-    console.log("Name:", user.first_name);
-
-}
-
-function dailyBonus() {
-
-    money += 0.05;
-
-    balance.innerHTML = "$" + money.toFixed(2);
-
-    tg.showAlert("Daily Bonus Claimed!");
+    loginUser();
 
 }
 
-function watchAds() {
+async function loginUser(){
 
-    tg.showAlert("Rewarded Ads Coming Soon");
+    await fetch("http://YOUR_SERVER_IP:8000/login",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+
+            user_id:user.id,
+
+            username:user.username || "",
+
+            first_name:user.first_name || ""
+
+        })
+
+    });
+
+    loadBalance();
 
 }
 
-function referral() {
+async function loadBalance(){
 
-    tg.showAlert("Referral System Coming Soon");
+    const res = await fetch(
 
-}
+        `http://YOUR_SERVER_IP:8000/balance/${user.id}`
 
-function withdraw() {
+    );
 
-    tg.showAlert("Withdraw System Coming Soon");
+    const data = await res.json();
+
+    balance.innerHTML="$"+Number(data.balance).toFixed(2);
 
 }
