@@ -40,8 +40,18 @@ async function loadBalance() {
     balance.innerHTML = "$" + Number(data.balance).toFixed(2);
 }
 
-async function dailyBonus() {
-    alert("🎁 Daily Bonus Coming Soon");
+async function dailyBonus(){
+
+    await fetch(
+        `https://clicktoearn.onrender.com/daily/${user.id}`,
+        {
+            method:"POST"
+        }
+    );
+
+    alert("🎉 Daily Bonus +$1");
+
+    loadBalance();
 }
 
 function watchAds() {

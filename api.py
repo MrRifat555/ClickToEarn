@@ -70,3 +70,21 @@ def balance(user_id: int):
     return {
         "balance": 0
     }
+@app.post("/daily/{user_id}")
+def daily_bonus(user_id: int):
+
+    conn = get_db()
+    cur = conn.cursor()
+
+    cur.execute(
+        "UPDATE users SET balance = balance + 1 WHERE user_id=?",
+        (user_id,)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return {
+        "success": True,
+        "reward": 1
+    }
