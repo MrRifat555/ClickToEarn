@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import sqlite3
 
+import random
 from database.database import init_db
 
 init_db()
@@ -26,7 +27,7 @@ def home():
 
 @app.post("/login")
 def login(user: User):
-
+ref_code = "RF" + str(user.user_id)
     conn = get_db()
     cur = conn.cursor()
 
@@ -106,3 +107,27 @@ def reward(user_id: int):
     conn.close()
 
     return {"success": True}
+@app.get("/referral/{user_id}")
+def referral(user_id: int):
+
+    conn = get_db()
+    cur = conn.cursor()
+
+    cur.execute(
+        "SELECT ref_code, referrals FROM users WHERE user_id=?",
+        (user_id,)
+    )
+
+    row = cur.fetchone()
+    conn.close()
+
+    if row:
+        return {
+            "ref_code": row[0],
+            "referrals": row[1]
+        }
+
+    return {
+        "ref_code": "",
+        "referrals": 0
+    }

@@ -13,6 +13,8 @@ def init_db():
         first_name TEXT,
         balance REAL DEFAULT 0,
         referrals INTEGER DEFAULT 0
+ref_code TEXT UNIQUE,
+referred_by INTEGER DEFAULT 0
     )
     """)
 
