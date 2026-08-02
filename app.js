@@ -17,7 +17,7 @@ if (tg.initDataUnsafe.user) {
 
 async function loginUser(){
 
-    await fetch("http://YOUR_SERVER_IP:8000/login",{
+    await fetch("https://clicktoearn.onrender.com/login",{
 
         method:"POST",
 
@@ -44,10 +44,10 @@ async function loginUser(){
 async function loadBalance(){
 
     const res = await fetch(
+    `https://clicktoearn.onrender.com/balance/${user.id}`
+);
 
-        `http://YOUR_SERVER_IP:8000/balance/${user.id}`
-
-    );
+    
 
     const data = await res.json();
 
