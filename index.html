@@ -5,49 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Click To Earn</title>
 
-<style>
-body{
-background:#0f172a;
-color:white;
-font-family:Arial;
-text-align:center;
-margin:0;
-padding:20px;
-}<!DOCTYPE html>
-<html>
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>Click To Earn</title>
-
 <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
 
 <div class="container">
+    <div class="card">
 
-<div class="card">
+        <h1>💰 Click To Earn</h1>
 
-<h1 align="center">💰 Click To Earn</h1>
+        <p>Current Balance</p>
 
-<p align="center">Current Balance</p>
+        <div class="balance" id="balance">$0.00</div>
 
-<div class="balance" id="balance">$0.00</div>
+        <button class="btn" onclick="dailyBonus()">🎁 Daily Bonus</button>
+        <button class="btn" onclick="watchAds()">📺 Watch Ads</button>
+        <button class="btn" onclick="referral()">👥 Referral</button>
+        <button class="btn" onclick="withdraw()">💸 Withdraw</button>
 
-<button class="btn" onclick="dailyBonus()">🎁 Daily Bonus</button>
-
-<button class="btn" onclick="watchAds()">📺 Watch Ads</button>
-
-<button class="btn" onclick="referral()">👥 Referral</button>
-
-<button class="btn" onclick="withdraw()">💸 Withdraw</button>
-
-</div>
-
+    </div>
 </div>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
