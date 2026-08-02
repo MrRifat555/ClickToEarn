@@ -39,3 +39,19 @@ async function loadBalance() {
 
     balance.innerHTML = "$" + Number(data.balance).toFixed(2);
 }
+
+async function dailyBonus() {
+    alert("🎁 Daily Bonus Coming Soon");
+}
+
+function watchAds() {
+    alert("📺 Ads System Coming Soon");
+}
+
+function referral() {
+    alert("👥 Referral System Coming Soon");
+}
+
+function withdraw() {
+    alert("💸 Withdraw System Coming Soon");
+}
