@@ -2,6 +2,9 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import sqlite3
 
+from database.database import init_db
+
+init_db()
 app = FastAPI(title="Click To Earn API")
 
 DB = "users.db"
