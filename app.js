@@ -8,49 +8,34 @@ const balance = document.getElementById("balance");
 let user = null;
 
 if (tg.initDataUnsafe.user) {
-
     user = tg.initDataUnsafe.user;
-
     loginUser();
-
 }
 
-async function loginUser(){
+async function loginUser() {
 
-    await fetch("https://clicktoearn.onrender.com/login",{
-
-        method:"POST",
-
-        headers:{
-            "Content-Type":"application/json"
+    await fetch("https://clicktoearn.onrender.com/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
         },
-
-        body:JSON.stringify({
-
-            user_id:user.id,
-
-            username:user.username || "",
-
-            first_name:user.first_name || ""
-
+        body: JSON.stringify({
+            user_id: user.id,
+            username: user.username || "",
+            first_name: user.first_name || ""
         })
-
     });
 
     loadBalance();
-
 }
 
-async function loadBalance(){
+async function loadBalance() {
 
     const res = await fetch(
-    `https://clicktoearn.onrender.com/balance/${user.id}`
-);
-
-    
+        `https://clicktoearn.onrender.com/balance/${user.id}`
+    );
 
     const data = await res.json();
 
-    balance.innerHTML="$"+Number(data.balance).toFixed(2);
-
+    balance.innerHTML = "$" + Number(data.balance).toFixed(2);
 }
