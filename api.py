@@ -131,3 +131,58 @@ def referral(user_id: int):
         "ref_code": "",
         "referrals": 0
     }
+@app.post("/referral")
+def apply_referral(data: dict):
+
+    user_id = data["user_id"]
+    ref_code = data["ref_code"]
+
+    conn = get_db()
+    cur = conn.cursor()
+
+    # নিজের কোড ব্যবহার করা যাবে না
+    cur.execute(
+        "SELECT user_id FROM users WHERE ref_code=?",
+        (ref_code,)
+    )
+
+    owner = cur.fetchone()
+
+    if not owner:
+        conn.close()
+        return {"success": False}
+
+    owner_id = owner[0]
+
+    if owner_id == user_id:
+        conn.close()
+        return {"success": False}
+
+    # আগে Referral ব্যবহার করেছে কি না
+    cur.execute(
+        "SELECT referred_by FROM users WHERE user_id=?",
+        (user_id,)
+    )
+
+    row = cur.fetchone()
+
+    if row and row[0] != 0:
+        conn.close()
+        return {"success": False}
+
+    # নতুন User-কে Mark করো
+    cur.execute(
+        "UPDATE users SET referred_by=? WHERE user_id=?",
+        (owner_id, user_id)
+    )
+
+    # Referrer Reward
+    cur.execute(
+        "UPDATE users SET balance=balance+1, referrals=referrals+1 WHERE user_id=?",
+        (owner_id,)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return {"success": True}
