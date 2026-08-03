@@ -56,28 +56,32 @@ async function dailyBonus(){
 
 async function watchAds() {
 
-    show_11491413('pop')
-    .then(async () => {
+    try {
 
-        await fetch(
+        await show_11491413();
+
+        const res = await fetch(
             `https://clicktoearn.onrender.com/reward/${user.id}`,
             {
                 method: "POST"
             }
         );
 
-        alert("🎉 Reward +$1");
+        const data = await res.json();
 
-        loadBalance();
+        if (data.success) {
+            alert("🎉 Reward +$1");
+            loadBalance();
+        } else {
+            alert("Reward failed.");
+        }
 
-    })
-    .catch((e) => {
+    } catch (e) {
 
         console.log(e);
-        alert("❌ Ad failed: " + JSON.stringify(e));
+        alert("❌ Ad was not completed.");
 
-    });
-
+    }
 }
 
 
