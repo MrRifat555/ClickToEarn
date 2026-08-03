@@ -186,3 +186,27 @@ def apply_referral(data: dict):
     conn.close()
 
     return {"success": True}
+from fastapi import Request
+
+@app.get("/postback")
+def postback(
+    telegram_id: int,
+    reward: str = "",
+    price: float = 0
+):
+
+    if reward != "yes":
+        return {"success": False}
+
+    conn = get_db()
+    cur = conn.cursor()
+
+    cur.execute(
+        "UPDATE users SET balance = balance + 1 WHERE user_id=?",
+        (telegram_id,)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return {"success": True}
