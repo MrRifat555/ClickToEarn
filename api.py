@@ -202,8 +202,7 @@ def postback(
     price: float = 0
 ):
 
-    if reward != "yes":
-        return {"success": False}
+    print(f"Reward={reward}, Price={price}, Telegram={telegram_id}")
 
     conn = get_db()
     cur = conn.cursor()
