@@ -56,20 +56,25 @@ async function dailyBonus(){
 
 async function watchAds() {
 
-    alert("📺 Watch the advertisement completely.");
+    show_11491413().then(async () => {
 
-    // এখানে পরে Monetag Rewarded SDK কল হবে
+        await fetch(
+            `https://clicktoearn.onrender.com/reward/${user.id}`,
+            {
+                method: "POST"
+            }
+        );
 
-    await fetch(
-        `https://clicktoearn.onrender.com/reward/${user.id}`,
-        {
-            method: "POST"
-        }
-    );
+        alert("🎉 Reward +$1");
 
-    alert("🎉 Reward +$1");
+        loadBalance();
 
-    loadBalance();
+    }).catch(() => {
+
+        alert("❌ Ad was not completed.");
+
+    });
+
 }
 
 function referral() {
