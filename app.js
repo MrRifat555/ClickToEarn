@@ -56,26 +56,29 @@ async function dailyBonus(){
 
 async function watchAds() {
 
-    show_11491413().then(async () => {
+    show_11491413()
+    .then(async () => {
+
+        console.log("Reward success");
 
         await fetch(
             `https://clicktoearn.onrender.com/reward/${user.id}`,
-            {
-                method: "POST"
-            }
+            { method: "POST" }
         );
 
         alert("🎉 Reward +$1");
-
         loadBalance();
 
-    }).catch(() => {
+    })
+    .catch((err) => {
 
-        alert("❌ Ad was not completed.");
+        console.log(err);
+        alert("Error: " + JSON.stringify(err));
 
     });
 
 }
+
 
 function referral() {
     alert("👥 Referral System Coming Soon");
