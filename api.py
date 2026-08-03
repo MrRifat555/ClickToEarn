@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 import sqlite3
 
 import random
@@ -7,7 +8,13 @@ from database.database import init_db
 
 init_db()
 app = FastAPI(title="Click To Earn API")
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],   # পরে চাইলে Netlify URL দিয়ে সীমাবদ্ধ করবে
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 DB = "users.db"
 
 def get_db():
